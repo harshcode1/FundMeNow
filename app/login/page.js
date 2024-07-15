@@ -1,6 +1,17 @@
+"use client"
 import React from 'react'
+import { useSession, signIn, signOut } from "next-auth/react"
+// -> It is used to know whether we are logged in or not
 
 const Login = () => {
+    const { data: session } = useSession()
+    if(session) {
+        return <>
+          Signed in as {session.user.email} <br/>
+          <button onClick={() => signOut()}>Sign out</button>
+        </>
+      }
+    
     return (
 
         <div className="text-white py-14 container mx-auto">
@@ -91,8 +102,8 @@ const Login = () => {
             </button>
 
 
-            <button
-                className="flex items-center w-64 border border-white bg-slate-50 text-black  rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            <button onClick={() => signIn("github")}
+                className="flex items-center w-64 border border-white bg-slate-50 text-black  rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" >
                 <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                     viewBox="0 0 73 73" version="1.1">
                     <g id="team-collaboration/version-control/github" stroke="none" stroke-width="1" fill="none"
