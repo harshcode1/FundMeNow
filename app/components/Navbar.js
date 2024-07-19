@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 const Navbar = () => {
-  const [showDropdown, setshowDropdown] = useState(true);
+  const [showDropdown, setshowDropdown] = useState(false);
   const { data: session } = useSession();
+  const name = session.user.name;
   // if(session) {
   //     return <>
   //       Signed in as {session.user.email} <br/>
@@ -15,10 +16,10 @@ const Navbar = () => {
 
   return (
     <nav className="bg-blue-950 text-white flex justify-between items-center px-4 h-16">
-      <div className="logo font-bold flex justify-center items-center">
+      <Link href="/" className="logo font-bold flex justify-center items-center">
         <img src="coffee.gif" width={40} alt="" />
         <span>BuyMeACoffee</span>
-      </div>
+      </Link>
       {/* <ul className='flex justify-between gap-4'>
         <li>Home</li>
         <li>About</li>
@@ -33,12 +34,13 @@ const Navbar = () => {
             {" "}
             <button
             onClick={()=>{setshowDropdown(!showDropdown)}}
+            onBlur={()=>{setTimeout(()=>{},100);setshowDropdown(false);}}
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
-              className="text-white mx-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white  mx-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
             >
-              Welcome {session.user.name}
+              Welcome {name}
               <svg
                 className="w-2.5 h-2.5 ms-3"
                 aria-hidden="true"
@@ -50,7 +52,7 @@ const Navbar = () => {
                   stroke="currentColor"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  stroke-width="2"
+                  strokeWidth="2"
                   d="m1 1 4 4 4-4"
                 />
               </svg>
@@ -66,57 +68,37 @@ const Navbar = () => {
                 aria-labelledby="dropdownDefaultButton"
               >
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/dashboard"
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     Dashboard
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/"
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
-                    Settings
-                  </a>
+                    You page
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Earnings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
+                  <button
+                    href="/login"
+                    onClick={()=>{signOut("github")}}
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     Sign out
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
           </>
         )}
         {session && (
-          <Link href={"/dashboard"}>
-            <button
-              type="button"
-              className="
-          text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl
-          focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800
-          font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2
-        "
-            >
-              Dashboard
-            </button>
-          </Link>
-        )}
-        {session && (
           <button
+          onClick={()=>{signOut("github")}}
             type="button"
             className="
           text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl

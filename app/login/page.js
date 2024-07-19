@@ -1,16 +1,17 @@
 "use client"
 import React from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from 'next/navigation'
 // -> It is used to know whether we are logged in or not
 
 const Login = () => {
-    const { data: session } = useSession()
-    if(session) {
-        return <>
-          Signed in as {session.user.email} <br/>
-          <button onClick={() => signOut()}>Sign out</button>
-        </>
-      }
+    const { data: session } = useSession();
+    const router = useRouter();
+  
+    if (session) {
+      router.push('/dashboard');
+      return null; // Optionally, you can return null or a loading spinner here
+    }
     
     return (
 
