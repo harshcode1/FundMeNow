@@ -6,7 +6,6 @@ import { useSession, signIn, signOut } from "next-auth/react";
 const Navbar = () => {
   const [showDropdown, setshowDropdown] = useState(false);
   const { data: session } = useSession();
-  const name = session.user.name;
   // if(session) {
   //     return <>
   //       Signed in as {session.user.email} <br/>
@@ -40,7 +39,7 @@ const Navbar = () => {
               className="text-white  mx-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
             >
-              Welcome {name}
+              Welcome {session.user.name}
               <svg
                 className="w-2.5 h-2.5 ms-3"
                 aria-hidden="true"
@@ -69,7 +68,7 @@ const Navbar = () => {
               >
                 <li>
                   <Link
-                    href="/dashboard"
+                    href="/Dashboard"
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     Dashboard
@@ -85,7 +84,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <button
-                    href="/login"
+                    href="/"
                     onClick={()=>{signOut("github")}}
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >

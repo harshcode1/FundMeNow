@@ -6,7 +6,7 @@ export default function Home() {
       <div className="flex justify-center flex-col gap-4 items-center text-white h-[44vh]">
         <div className="font-bold text-3xl flex items-center justify-center">
           Buy Me a Coffee
-          <img src="/coffee.gif" alt="Coffee" className="inline-block ml-2" width={50} height={50} />
+          <img  src="/coffee.gif" alt="Coffee" className=" invert-0 inline-block ml-2" width={50} height={50} />
         </div>
 
         <p>
@@ -59,7 +59,7 @@ export default function Home() {
         <h1 className="text-3xl font-bold text-center mb-14">
           Learn more about US
         </h1>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/33o3s4Vs4Sw?si=TCnzRP14jSN8BVF8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>        
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/33o3s4Vs4Sw?si=TCnzRP14jSN8BVF8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>        
         </div>
     </>
   );
