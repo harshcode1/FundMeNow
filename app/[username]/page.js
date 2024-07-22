@@ -1,12 +1,26 @@
-import React from 'react'
+import React from 'react';
+import Image from 'next/image';
 
 const username = ({ params }) => {
   return (
     <>
       <div className="cover w-full bg-red-50 relative">
-        <img className="object-hover w-full h-[350]" src="https://c10.patreonusercontent.com/4/patreon-media/p/campaign/4842667/452146dcfeb04f38853368f554aadde1/eyJ3IjoxOTIwLCJ3ZSI6MX0%3D/16.gif?token-time=1722729600&token-hash=HVKoue-XHYonEojOK1U6zV4DehD9QHYef7vSZTsQ3sI%3D" alt="" />
+        <Image
+          className="object-hover w-full h-[350]"
+          src="https://c10.patreonusercontent.com/4/patreon-media/p/campaign/4842667/452146dcfeb04f38853368f554aadde1/eyJ3IjoxOTIwLCJ3ZSI6MX0%3D/16.gif?token-time=1722729600&token-hash=HVKoue-XHYonEojOK1U6zV4DehD9QHYef7vSZTsQ3sI%3D"
+          alt=""
+          layout="responsive"
+          width={1920}
+          height={350}
+        />
         <div className="absolute -bottom-12 right-[46%] border-white border-2 rounded-full">
-          <img width={100} className="rounded-full" height={100} src="https://t3.ftcdn.net/jpg/05/55/79/96/360_F_555799679_wN07UXTYUdeBPJeb5quYBAloxJ9Wafdn.jpg" alt="" />
+          <Image
+            width={100}
+            className="rounded-full"
+            height={100}
+            src="https://t3.ftcdn.net/jpg/05/55/79/96/360_F_555799679_wN07UXTYUdeBPJeb5quYBAloxJ9Wafdn.jpg"
+            alt=""
+          />
         </div>
       </div>
       <div className="info flex justify-center items-center my-12 flex-col gap-1">
@@ -25,20 +39,20 @@ const username = ({ params }) => {
             <h2 className='text-2xl font-bold my-5 text-center'>Supporters</h2>
             <ul className='my-5 text-lg'>
               <li className='my-4 flex gap-2 items-center'>
-                <img width={33} src="admin.png" alt="" />
-                <span>Harsh donated <span className="font-bold">$400</span> with a message "I Love You man"</span>
+                <Image width={33} height={33} src="/admin.png" alt="" />
+                <span>Harsh donated <span className="font-bold">$400</span> with a message &quot;I Love You man&quot;</span>
               </li>
               <li className='my-4 flex gap-2 items-center'>
-                <img width={33} src="admin.png" alt="" />
-                <span>Harsh donated <span className="font-bold">$400</span> with a message ""</span>
+                <Image width={33} height={33} src="/admin.png" alt="" />
+                <span>Harsh donated <span className="font-bold">$400</span> with a message &quot;&quot;</span>
               </li>
               <li className='my-4 flex gap-2 items-center'>
-                <img width={33} src="admin.png" alt="" />
-                <span>Harsh donated <span className="font-bold">$400</span> with a message ""</span>
+                <Image width={33} height={33} src="/admin.png" alt="" />
+                <span>Harsh donated <span className="font-bold">$400</span> with a message &quot;&quot;</span>
               </li>
               <li className='my-4 flex gap-2 items-center'>
-                <img width={33} src="admin.png" alt="" />
-                <span>Harsh donated <span className="font-bold">$400</span> with a message ""</span>
+                <Image width={33} height={33} src="/admin.png" alt="" />
+                <span>Harsh donated <span className="font-bold">$400</span> with a message &quot;&quot;</span>
               </li>
             </ul>
           </div>
@@ -63,8 +77,7 @@ const username = ({ params }) => {
         </div>
       </div >
     </>
-
   )
 }
 
-export default username
+export default username;

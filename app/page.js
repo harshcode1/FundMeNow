@@ -6,7 +6,7 @@ export default function Home() {
       <div className="flex justify-center flex-col gap-4 items-center text-white h-[44vh]">
         <div className="font-bold text-3xl flex items-center justify-center">
           Buy Me a Coffee
-          <img  src="/coffee.gif" alt="Coffee" className=" invert-0 inline-block ml-2" width={50} height={50} />
+          <Image src="/coffee.gif" alt="Coffee" className="invert-0 inline-block ml-2" width={50} height={50} />
         </div>
 
         <p>
@@ -37,17 +37,17 @@ export default function Home() {
         </h1>
         <div className="flex gap-5 justify-around">
           <div className="item space-y-3 flex flex-col items-center justify-center">
-            <img className="bg-slate-400 rounded-full p-2 text-black" width={88} src="/man.webp" alt="Man" />
+            <Image className="bg-slate-400 rounded-full p-2 text-black" width={88} height={88} src="/man.webp" alt="Man" />
             <p className="font-bold">Fans want to help</p>
             <p className="text-center">Your fans are available for you to help you</p>
           </div>
           <div className="item space-y-3 flex flex-col items-center justify-center">
-            <img className="bg-slate-400 rounded-full p-2 text-black" width={88} src="/coin-spin.gif" alt="Coin Spin" />
+            <Image className="bg-slate-400 rounded-full p-2 text-black" width={88} height={88} src="/coin-spin.gif" alt="Coin Spin" />
             <p className="font-bold">Fans want to help</p>
             <p className="text-center">Your fans are available for you to help you</p>
           </div>
           <div className="item space-y-3 flex flex-col items-center justify-center">
-            <img className="bg-slate-400 rounded-full p-2 text-black" width={88} src="/grp.gif" alt="Group" />
+            <Image className="bg-slate-400 rounded-full p-2 text-black" width={88} height={88} src="/grp.gif" alt="Group" />
             <p className="font-bold">Fans want to help</p>
             <p className="text-center">Your fans are available for you to help you</p>
           </div>
