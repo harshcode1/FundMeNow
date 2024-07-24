@@ -9,7 +9,7 @@ const Login = () => {
     const router = useRouter();
   
     if (session) {
-      router.push('/DS');
+      router.push('/Dashboard');
       return null; // Optionally, you can return null or a loading spinner here
     }
     

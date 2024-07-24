@@ -1,60 +1,65 @@
-import NextAuth from 'next-auth'
-// import AppleProvider from 'next-auth/providers/apple'
-// import FacebookProvider from 'next-auth/providers/facebook'
-// import GoogleProvider from 'next-auth/providers/google'
-// import EmailProvider from 'next-auth/providers/email'
-import GitHubProvider from 'next-auth/providers/github'
-// import mongoose from 'mongoose';
-// import User from '@/models/User';
-// import Payment from '@/models/Payment';
+import NextAuth from 'next-auth';
+import GitHubProvider from 'next-auth/providers/github';
+import mongoose from 'mongoose';
+import User from '@/models/User';
+import connectToDatabase from '@/db';
+// Ensure Mongoose connection is established only once
+
 
 export const authoptions = NextAuth({
   providers: [
-    // OAuth authentication providers...
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET
+      clientSecret: process.env.GITHUB_SECRET,
+      profile(profile) {
+        // Include email from profile if available
+        return {
+          id: profile.id,
+          name: profile.login,
+          email: profile.email || null,
+          image: profile.avatar_url,
+        };
+      }
     }),
-
-
-    // AppleProvider({
-    //   clientId: process.env.APPLE_ID,
-    //   clientSecret: process.env.APPLE_SECRET
-    // }),
-    // FacebookProvider({
-    //   clientId: process.env.FACEBOOK_ID,
-    //   clientSecret: process.env.FACEBOOK_SECRET
-    // }),
-    // GoogleProvider({
-    //   clientId: process.env.GOOGLE_ID,
-    //   clientSecret: process.env.GOOGLE_SECRET
-    // }),
-
+    // Other providers...
   ],
-  // callbacks: {
-  //   async signIn({ user, account, profile, email, credentials }) {
-  //     if(account.provider == "github") {
-  //       // Connect to the database
-  //       const client = await mongoose.connect()
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account.provider === 'github') {
+        try {
+          // Debugging statements
+          console.log('User:', user);
+          console.log('Account:', account);
+          console.log('Profile:', profile);
 
-  //       // Check if the user already exists in the database
-  //       // const currentUser = await client.db("users").collection("users").findOne({email:email})
-  //       const currentUser = User.findOne({email : email});
-  //       if(!currentUser) {
-  //         const newUser = new User({
-  //           email : email,
-  //           username : email.split("@")[0],
-  //         })
-  //       }
-  //       await newUser.save();
-  //       user.name = newUser.username;
-  //     }else {
-  //       user.name = newUser.username;
-  //     }
-      
-  //   }
-  // },
+          // Extract email from user or profile
+          const email = user.email || profile.email;
+          
+          // Connect to the database
+          await connectToDatabase();
+
+          // Check if the user already exists in the database
+          const currentUser = await User.findOne({ email: email });
+
+          if (!currentUser) {
+            const newUser = new User({
+              email: email,
+              username: email.split("@")[0],
+            });
+            await newUser.save();
+            user.name = newUser.username;
+          } else {
+            user.name = currentUser.username;
+          }
+        } catch (error) {
+          console.error('Error during sign-in:', error);
+          return false; // Return false to prevent sign-in on error
+        }
+      }
+      return true;
+    }
+  },
   secret: process.env.NEXTAUTH_SECRET,
 });
 
-export { authoptions as GET, authoptions as POST }
+export { authoptions as GET, authoptions as POST };

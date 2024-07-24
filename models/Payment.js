@@ -13,5 +13,4 @@ const PaymentSchema = new Schema({
 });
 
 // Check if the model already exists in mongoose.models before defining it
-const Payment = models.Payment || model("Payment", PaymentSchema);
-export default Payment;
+export default mongoose.models.Payment || model("Payment", PaymentSchema);
