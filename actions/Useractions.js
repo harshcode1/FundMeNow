@@ -1,5 +1,3 @@
-"use server"
-
 import connectToDatabase from "@/db";
 import Payment from "@/models/Payment";
 import User from "@/models/User";
@@ -51,7 +49,7 @@ export const initiate = async (amount, to_username, paymentform) => {
         console.error("Error initiating payment:", error);
         throw error;
     }
-}
+};
 
 export const fetchUser = async (username) => {
     try {
@@ -66,7 +64,7 @@ export const fetchUser = async (username) => {
         console.error("Error fetching user by username:", error);
         throw error;
     }
-}
+};
 
 export const fetchPayments = async (username) => {
     try {
@@ -77,20 +75,24 @@ export const fetchPayments = async (username) => {
         console.error("Error fetching payments:", error);
         throw error;
     }
-}
+};
 
 export const updateProfile = async (data, oldusername) => {
-    await connectToDatabase()
-    let ndata = Object.fromEntries(data)
+    try {
+        await connectToDatabase();
 
-    // if username is bring updated then check if username is available
-    if (oldusername !== ndata.username) {
-        let u = await User.findOne({ username: ndata.username })
-        if(u) {
-            return {error : "Username ulready Exists"}
+        // if username is being updated then check if username is available
+        if (oldusername !== data.username) {
+            let u = await User.findOne({ username: data.username });
+            if (u) {
+                return { error: "Username already exists" };
+            }
         }
 
+        await User.updateOne({ email: data.email }, data);
+        return { success: "Profile updated successfully" };
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        throw error;
     }
-    await User.updateOne({email : ndata.email} , ndata);
-}
-
+};

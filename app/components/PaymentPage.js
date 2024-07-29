@@ -5,8 +5,10 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { initiate, fetchPayments, fetchUser, updateProfile } from '@/actions/Useractions';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const PaymentPage = ({ username }) => {
+    const router = useRouter();
     const { data: session, status } = useSession();
     const [currentUser, setCurrentUser] = useState({});
     const [payments, setPayments] = useState([]);
@@ -19,7 +21,7 @@ const PaymentPage = ({ username }) => {
     useEffect(() => {
         getData();
         if(!session) {
-            Router.push("/login");
+            router.push("/login");
         }
     }, [router , session]);
 
@@ -39,10 +41,20 @@ const PaymentPage = ({ username }) => {
     };
 
     const handleSubmit = async (e) => {
-        update()
-        let a = await updateProfile(e , session.user.name)
-        alert("Profile Updated")
-    }
+        try {
+            const response = await updateProfile(paymentForm, session.user.name);
+            if (response.error) {
+                alert(response.error);
+            } else {
+                alert("Profile Updated");
+                getData(); 
+            }
+        } catch (error) {
+            console.error("Error updating profile:", error);
+            alert("Failed to update profile. Please try again.");
+        }
+    };
+    
 
     const pay = async (amount) => {
         if (!paymentForm.name) {

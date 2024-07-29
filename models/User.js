@@ -9,6 +9,9 @@ const UserSchema = new Schema({
     coverpick: { type: String },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
+    razorpayid: { type: String },
+    razorpaysecret: { type: String },
+    done : { type: Boolean, default: false }
 });
 
 export default mongoose.models.User || model("User", UserSchema);
